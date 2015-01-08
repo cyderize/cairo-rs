@@ -2,6 +2,7 @@ extern crate "cairo-sys" as ffi;
 extern crate libc;
 
 use self::surface::Surface;
+use self::pattern::Pattern;
 
 pub mod version;
 pub mod surface;
@@ -18,6 +19,14 @@ impl Context {
 	pub fn new<S: Surface>(surface: &S) -> Context {
 		Context {
 			cr: unsafe { ffi::cairo_create(surface.as_raw_surface()) }
+		}
+	}
+	pub fn set_source(&self, pattern: Pattern) {
+		unsafe {
+			ffi::cairo_set_source(
+				self.cr,
+				pattern.as_raw()
+			)
 		}
 	}
 	pub fn set_source_rgb(&self, red: f64, green: f64, blue: f64) {
