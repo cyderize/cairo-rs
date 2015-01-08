@@ -1,6 +1,7 @@
 use ffi;
 use surface::Surface;
 use pattern::Pattern;
+use common::RawConversion;
 
 /// A surface pattern
 pub struct SurfacePattern {
@@ -15,9 +16,16 @@ impl SurfacePattern {
 	}
 }
 
-impl Pattern for SurfacePattern {
+impl Pattern for SurfacePattern { }
+
+impl RawConversion<*mut ffi::cairo_pattern_t> for SurfacePattern {
 	fn as_raw(&self) -> *mut ffi::cairo_pattern_t {
 		self.inner
+	}
+	fn from_raw(raw: *mut ffi::cairo_pattern_t) -> SurfacePattern {
+		SurfacePattern {
+			inner: raw
+		}
 	}
 }
 

@@ -1,5 +1,6 @@
 use ffi;
 use libc;
+use common::RawConversion;
 
 pub use self::solid::SolidPattern;
 pub use self::surface::SurfacePattern;
@@ -12,8 +13,7 @@ mod linear;
 mod radial;
 
 /// A trait for cairo patterns
-pub trait Pattern {
-	fn as_raw(&self) -> *mut ffi::cairo_pattern_t;
+pub trait Pattern: RawConversion<*mut ffi::cairo_pattern_t> {
 	fn get_reference_count(&self) -> uint {
 		unsafe {
 			ffi::cairo_pattern_get_reference_count(self.as_raw()) as uint

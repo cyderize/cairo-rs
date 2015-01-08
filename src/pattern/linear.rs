@@ -1,6 +1,7 @@
 use ffi;
 use libc;
 use pattern::Pattern;
+use common::RawConversion;
 
 /// A linear gradient pattern
 pub struct LinearPattern {
@@ -22,9 +23,16 @@ impl LinearPattern {
 	}
 }
 
-impl Pattern for LinearPattern {
+impl Pattern for LinearPattern { }
+
+impl RawConversion<*mut ffi::cairo_pattern_t> for LinearPattern {
 	fn as_raw(&self) -> *mut ffi::cairo_pattern_t {
 		self.inner
+	}
+	fn from_raw(raw: *mut ffi::cairo_pattern_t) -> LinearPattern {
+		LinearPattern {
+			inner: raw
+		}
 	}
 }
 

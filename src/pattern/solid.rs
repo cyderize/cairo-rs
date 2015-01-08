@@ -1,6 +1,7 @@
 use ffi;
 use libc;
 use pattern::Pattern;
+use common::RawConversion;
 
 /// A solid pattern
 pub struct SolidPattern {
@@ -34,9 +35,16 @@ impl SolidPattern {
 	}
 }
 
-impl Pattern for SolidPattern {
+impl Pattern for SolidPattern { }
+
+impl RawConversion<*mut ffi::cairo_pattern_t> for SolidPattern {
 	fn as_raw(&self) -> *mut ffi::cairo_pattern_t {
 		self.inner
+	}
+	fn from_raw(raw: *mut ffi::cairo_pattern_t) -> SolidPattern {
+		SolidPattern {
+			inner: raw
+		}
 	}
 }
 

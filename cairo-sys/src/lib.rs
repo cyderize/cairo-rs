@@ -458,7 +458,7 @@ extern {
 	pub fn cairo_set_fill_rule(cr: *mut cairo_t, fill_rule: cairo_fill_rule_t);
 	pub fn cairo_set_line_width(cr: *mut cairo_t, width: c_double);
 	pub fn cairo_set_line_cap(cr: *mut cairo_t, line_cap: cairo_line_cap_t);
-	pub fn cairo_set_line_join(cr: *mut cairo_t, line_join : cairo_line_join_t);
+	pub fn cairo_set_line_join(cr: *mut cairo_t, line_join: cairo_line_join_t);
 	pub fn cairo_set_dash(cr: *mut cairo_t, dashes: *const c_double, num_dashes: c_int, offset: c_double);
 	pub fn cairo_set_miter_limit(cr: *mut cairo_t, limit: c_double);
 	pub fn cairo_translate(cr: *mut cairo_t, tx: c_double, ty: c_double) -> c_void;
