@@ -1,6 +1,7 @@
 //! Provides cairo drawing surfaces
 use ffi;
 use result::{CairoResult, from_raw};
+use common::RawConversion;
 use std::ffi::CString;
 
 pub use self::image::ImageSurface;
@@ -28,3 +29,32 @@ pub trait Surface {
 		}
 	}
 }
+
+#[derive(Copy, FromPrimitive)]
+pub enum SurfaceType {
+	Image,
+	Pdf,
+	Ps,
+	Xlib,
+	Xcb,
+	Glitz,
+	Quartz,
+	Win32,
+	Beos,
+	DirectFb,
+	Svg,
+	Os2,
+	Win32Printing,
+	QuartzImage,
+	Script,
+	Qt,
+	Recording,
+	Vg,
+	Gl,
+	Drm,
+	Tee,
+	Xml,
+	Skia,
+	SubSurface
+}
+raw_conversion!(SurfaceType, ffi::cairo_surface_type_t);

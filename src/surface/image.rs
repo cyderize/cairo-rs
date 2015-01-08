@@ -2,6 +2,7 @@ use ffi;
 use libc;
 use format::Format;
 use surface::Surface;
+use common::RawConversion;
 
 /// Represents a cairo image surface
 pub struct ImageSurface {
