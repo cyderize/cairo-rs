@@ -1,5 +1,37 @@
 # cairo-rs
-This library is under development. For bare-bones cairo bindings for Rust, see the cairo-sys directory.
+This library provides [Cairo](http://cairographics.org) bindings for the [Rust](http://rust-lang.org/) programming language.
+
+The library attempts to provide exactly the same API as the C library, however some changes were necessary due to the presence of C unions and the like which do not have convenient Rust counterparts.
+
+Currently in an experimental state, cairo-rs is most likely not anywhere near bug-free.
+
+## Dependencies
+You'll need to have the (http://cairographics.org/download/)[cairo development libraries] to link with.
+
+On Windows, you'll need to rename `libcairo.dll.a` to `libcairo.a` and place it in in `C:\Rust\bin\rustlib\i686-pc-mingw32\lib` or `C:\Rust\bin\rustlib\x86_64-pc-windows-gnu\lib`.
+
+## Usage
+To install using the Git repository, add the following to your Cargo.toml:
+
+```ini
+[dependencies.cairo-sys]
+git = "https://github.com/cyderize/cairo-rs.git"
+path = "cairo-sys"
+```
+
+And add the line
+
+```rust
+extern crate "cairo-sys" as cairo_sys;
+```
+
+to your crate root.
+
+## Example
+An example can be run with
+```
+cargo run --example main
+```
 
 ## Licence
 ### The MIT License (MIT)

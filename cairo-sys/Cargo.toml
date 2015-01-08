@@ -1,6 +1,6 @@
 [package]
 
-name = "cairo"
+name = "cairo-sys"
 version = "0.0.1"
 authors = ["cyderize <admin@cyderize.org>"]
 
@@ -13,6 +13,5 @@ keywords = ["cairo", "graphics"]
 
 license = "MIT"
 
-[dependencies.cairo-sys]
-version = "~0.0.1"
-path = "cairo-sys"
+links = "cairo"
+build = "src/build.rs"
