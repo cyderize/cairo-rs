@@ -2,7 +2,16 @@
 
 name = "cairo-sys"
 version = "0.0.1"
-authors = ["Jason N <admin@cyderize.org>"]
+authors = ["cyderize <admin@cyderize.org>"]
+
+description = "Cairo bindings for Rust."
+repository = "https://github.com/cyderize/cairo-rs.git"
+
+readme = "README.md"
+
+keywords = ["cairo", "graphics"]
+
+license = "MIT"
 
 links = "cairo"
 build = "src/build.rs"
