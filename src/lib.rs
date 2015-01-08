@@ -8,6 +8,7 @@ pub mod version;
 pub mod surface;
 pub mod pattern;
 pub mod format;
+pub mod result;
 
 /// Represents a cairo context
 pub struct Context {
@@ -18,10 +19,10 @@ impl Context {
 	/// Create a new cairo context from the given surface
 	pub fn new<S: Surface>(surface: &S) -> Context {
 		Context {
-			cr: unsafe { ffi::cairo_create(surface.as_raw_surface()) }
+			cr: unsafe { ffi::cairo_create(surface.as_raw()) }
 		}
 	}
-	pub fn set_source(&self, pattern: Pattern) {
+	pub fn set_source<P: Pattern>(&self, pattern: P) {
 		unsafe {
 			ffi::cairo_set_source(
 				self.cr,
@@ -50,6 +51,7 @@ impl Context {
 			)
 		}
 	}
+	
 }
 
 impl Drop for Context {

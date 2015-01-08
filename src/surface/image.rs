@@ -1,32 +1,11 @@
-//! Provides cairo drawing surfaces
 use ffi;
 use libc;
 use format::Format;
-use std::slice::SliceExt;
-
-/// Represents a cairo surface
-pub trait Surface {
-	/// Return a raw pointer to the underlying surface
-	fn as_raw_surface(&self) -> *mut ffi::cairo_surface_t;
-}
+use surface::Surface;
 
 /// Represents a cairo image surface
 pub struct ImageSurface {
 	inner: *mut ffi::cairo_surface_t
-}
-
-impl Surface for ImageSurface {
-	fn as_raw_surface(&self) -> *mut ffi::cairo_surface_t {
-		self.inner
-	}
-}
-
-impl Drop for ImageSurface {
-	fn drop(&mut self) {
-		unsafe {
-			ffi::cairo_surface_destroy(self.as_raw_surface());
-		}
-	}
 }
 
 impl ImageSurface {
@@ -50,6 +29,30 @@ impl ImageSurface {
 				height as libc::c_int, 
 				stride as libc::c_int
 			)}
+		}
+	}
+}
+
+impl Surface for ImageSurface {
+	fn as_raw(&self) -> *mut ffi::cairo_surface_t {
+		self.inner
+	}
+}
+
+impl Clone for ImageSurface {
+	fn clone(&self) -> ImageSurface {
+		ImageSurface {
+			inner: unsafe {
+				ffi::cairo_surface_reference(self.inner)
+			}
+		}
+	}
+}
+
+impl Drop for ImageSurface {
+	fn drop(&mut self) {
+		unsafe {
+			ffi::cairo_surface_destroy(self.as_raw());
 		}
 	}
 }
