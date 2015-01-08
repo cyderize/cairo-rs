@@ -1,0 +1,8 @@
+[package]
+
+name = "cairo-sys"
+version = "0.0.1"
+authors = ["Jason N <admin@cyderize.org>"]
+
+links = "cairo"
+build = "src/build.rs"
