@@ -5,6 +5,11 @@ The library attempts to provide exactly the same API as the C library, however s
 
 Currently in an experimental state, cairo-rs is most likely not anywhere near bug-free.
 
+## Dependencies
+You'll need to have the (http://cairographics.org/download/)[cairo development libraries] to link with.
+
+On Windows, you'll need to rename `libcairo.dll.a` to `libcairo.a` and place it in in `C:\Rust\bin\rustlib\i686-pc-mingw32\lib` or `C:\Rust\bin\rustlib\x86_64-pc-windows-gnu\lib`.
+
 ## Usage
 To install using the Git repository, add the following to your Cargo.toml:
 
