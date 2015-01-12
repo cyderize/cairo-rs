@@ -102,6 +102,80 @@ impl Context {
 			ffi::cairo_set_miter_limit(self.inner, limit as libc::c_double);
 		}
 	}
+
+	// Paths
+	pub fn new_path(&self) {
+		unsafe {
+			ffi::cairo_new_path(self.inner);
+		}
+	}
+
+	pub fn new_sub_path(&self) {
+		unsafe {
+			ffi::cairo_new_sub_path(self.inner);
+		}
+	}
+
+	pub fn close_path(&self) {
+		unsafe {
+			ffi::cairo_close_path(self.inner);
+		}
+	}
+
+	pub fn arc(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
+		unsafe {
+			ffi::cairo_arc(self.inner, xc as libc::c_double, yc as libc::c_double, radius as libc::c_double, angle1 as libc::c_double, angle2 as libc::c_double);
+		}
+	}
+
+	pub fn arc_negative(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
+		unsafe {
+			ffi::cairo_arc_negative(self.inner, xc as libc::c_double, yc as libc::c_double, radius as libc::c_double, angle1 as libc::c_double, angle2 as libc::c_double);
+		}
+	}
+
+	pub fn line_to(&self, x: f64, y: f64) {
+		unsafe {
+			ffi::cairo_line_to(self.inner, x as libc::c_double, y as libc::c_double);
+		}
+	}
+
+	pub fn move_to(&self, x: f64, y: f64) {
+		unsafe {
+			ffi::cairo_move_to(self.inner, x as libc::c_double, y as libc::c_double);
+		}
+	}
+
+	pub fn rectangle(&self, x: f64, y: f64, width: f64, height: f64) {
+		unsafe {
+			ffi::cairo_rectangle(self.inner, x as libc::c_double, y as libc::c_double, width as libc::c_double, height as libc::c_double);
+		}
+	}
+
+	// Drawing
+	pub fn fill(&self) {
+		unsafe {
+			ffi::cairo_fill(self.inner);
+		}
+	}
+
+	pub fn fill_preserve(&self) {
+		unsafe {
+			ffi::cairo_fill_preserve(self.inner);
+		}
+	}
+
+	pub fn stroke(&self) {
+		unsafe {
+			ffi::cairo_fill(self.inner);
+		}
+	}
+
+	pub fn stroke_preserve(&self) {
+		unsafe {
+			ffi::cairo_fill_preserve(self.inner);
+		}
+	}
 }
 
 impl Clone for Context {
