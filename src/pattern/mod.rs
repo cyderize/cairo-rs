@@ -14,9 +14,9 @@ mod radial;
 
 /// A trait for cairo patterns
 pub trait Pattern: RawConversion<*mut ffi::cairo_pattern_t> {
-	fn get_reference_count(&self) -> uint {
+	fn get_reference_count(&self) -> usize {
 		unsafe {
-			ffi::cairo_pattern_get_reference_count(self.as_raw()) as uint
+			ffi::cairo_pattern_get_reference_count(self.as_raw()) as usize
 		}
 	}
 	fn add_color_stop_rgb(&self, offset: f64, red: f64, green: f64, blue: f64) {

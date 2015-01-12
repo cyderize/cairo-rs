@@ -24,9 +24,9 @@ impl Context {
 			inner: unsafe { ffi::cairo_create(surface.as_raw()) }
 		}
 	}
-	pub fn get_reference_count(&self) -> uint {
+	pub fn get_reference_count(&self) -> usize {
 		unsafe {
-			ffi::cairo_get_reference_count(self.inner) as uint
+			ffi::cairo_get_reference_count(self.inner) as usize
 		}
 	}
 	pub fn set_source<P: Pattern>(&self, pattern: P) {

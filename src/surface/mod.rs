@@ -12,9 +12,9 @@ mod image;
 pub trait Surface {
 	/// Return a raw pointer to the underlying surface
 	fn as_raw(&self) -> *mut ffi::cairo_surface_t;
-	fn get_reference_count(&self) -> uint {
+	fn get_reference_count(&self) -> usize {
 		unsafe {
-			ffi::cairo_surface_get_reference_count(self.as_raw()) as uint
+			ffi::cairo_surface_get_reference_count(self.as_raw()) as usize
 		}
 	}
 	fn write_to_png(&self, filename: &str) -> CairoResult<()> {
