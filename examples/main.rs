@@ -7,8 +7,12 @@ fn main() {
 	g.rectangle(10., 10., 10., 10.);
 	g.fill();
 
-	cairo::surface::Surface::write_to_png(&image, "test.png");
-	//image.write_to_png("test.png");
+	g.select_font_face("Marker Felt", cairo::common::FontSlant::Normal, cairo::common::FontWeight::Normal);
+	g.set_font_size(24.);
+	g.set_source_rgb(0.1, 0.1, 0.1);
+	g.move_to(20., 20.);
+	g.show_text("HELLO WORLD!");
 
+	cairo::surface::Surface::write_to_png(&image, "test.png");
 	println!("cairo version: {}", cairo::version::version());
 }

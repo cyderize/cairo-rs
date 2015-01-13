@@ -1,9 +1,12 @@
 extern crate "cairo-sys" as ffi;
 extern crate libc;
 
+use std::ptr;
+use std::ffi::CString;
+
 use self::surface::Surface;
 use self::pattern::Pattern;
-use self::common::{RawConversion, Antialias, LineCap, LineJoin, FillRule};
+use self::common::{RawConversion, Antialias, LineCap, LineJoin, FillRule, FontSlant, FontWeight};
 
 pub mod common;
 pub mod version;
@@ -174,6 +177,44 @@ impl Context {
 	pub fn stroke_preserve(&self) {
 		unsafe {
 			ffi::cairo_fill_preserve(self.inner);
+		}
+	}
+
+	// Simple Text
+	pub fn select_font_face(&self, family: &str, slant: FontSlant, weight: FontWeight) {
+		let buf = CString::from_slice(family.as_bytes()).as_ptr();
+		unsafe {
+			ffi::cairo_select_font_face(self.inner, buf, slant.as_raw(), weight.as_raw());
+		}
+	}
+
+	pub fn set_font_size(&self, size: f64) {
+		unsafe {
+			ffi::cairo_set_font_size(self.inner, size as libc::c_double);
+		}
+	}
+
+	pub fn font_extents(&self) -> ffi::cairo_font_extents_t {
+		let mut extents: ffi::cairo_font_extents_t = unsafe { std::mem::uninitialized::<ffi::cairo_font_extents_t>() };
+		unsafe {
+			ffi::cairo_font_extents(self.inner, &mut extents);
+		}
+		return extents
+	}
+
+	pub fn text_extents(&self, utf8: &str) -> ffi::cairo_text_extents_t {
+		let mut extents: ffi::cairo_text_extents_t = unsafe { std::mem::uninitialized::<ffi::cairo_text_extents_t>() };
+		let buf = CString::from_slice(utf8.as_bytes()).as_ptr();
+		unsafe {
+			ffi::cairo_text_extents(self.inner, buf, &mut extents);
+		}
+		return extents
+	}
+
+	pub fn show_text(&self, utf8: &str) {
+		let buf = CString::from_slice(utf8.as_bytes()).as_ptr();
+		unsafe {
+			ffi::cairo_show_text(self.inner, buf);
 		}
 	}
 }
