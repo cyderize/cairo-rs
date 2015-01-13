@@ -11,7 +11,7 @@ pub struct ImageSurface {
 
 impl ImageSurface {
 	/// Creates a new ImageSurface
-	pub fn new(format: Format, width: int, height: int) -> ImageSurface {
+	pub fn new(format: Format, width: isize, height: isize) -> ImageSurface {
 		ImageSurface {
 			inner: unsafe { ffi::cairo_image_surface_create(
 				format.as_raw(), 
@@ -21,7 +21,7 @@ impl ImageSurface {
 		}
 	}
 	/// Creates a new ImageSurface for the provided pixel data
-	pub fn for_data(data: &mut [u8], format: Format, width: int, height: int, stride: int) -> ImageSurface {
+	pub fn for_data(data: &mut [u8], format: Format, width: isize, height: isize, stride: isize) -> ImageSurface {
 		ImageSurface {
 			inner: unsafe { ffi::cairo_image_surface_create_for_data(
 				data.as_mut_ptr() as *mut libc::c_uchar, 
