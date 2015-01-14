@@ -20,7 +20,9 @@ pub trait Surface {
 	fn write_to_png(&self, filename: &str) -> CairoResult<()> {
 		unsafe {
 			let filename = CString::from_slice(filename.as_bytes());
-			from_raw((), ffi::cairo_surface_write_to_png(self.as_raw(), filename.as_ptr()))
+			let result = ffi::cairo_surface_write_to_png(self.as_raw(), filename.as_ptr());
+			println!("{:?}", result);
+			from_raw((), result)
 		}
 	}
 	fn flush(&self) {

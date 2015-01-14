@@ -1,5 +1,6 @@
 #![allow(non_camel_case_types)]
 #![allow(missing_copy_implementations)]
+#![allow(unstable)]
 
 extern crate libc;
 
@@ -32,7 +33,7 @@ pub struct cairo_user_data_key_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_status_t {
 	CAIRO_STATUS_SUCCESS = 0,
 
@@ -76,6 +77,7 @@ pub enum cairo_status_t {
 }
 
 #[repr(C)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_content_t {
 	CAIRO_CONTENT_COLOR = 0x1000,
 	CAIRO_CONTENT_ALPHA = 0x2000,
@@ -86,7 +88,7 @@ pub type cairo_write_func_t = extern fn(closure: *mut c_void, data: *const c_uch
 pub type cairo_read_func_t = extern fn(closure: *mut c_void, data: *mut c_uchar, length: c_uint) -> cairo_status_t;
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_operator_t {
 	CAIRO_OPERATOR_CLEAR,
 
@@ -124,7 +126,7 @@ pub enum cairo_operator_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_antialias_t {
 	CAIRO_ANTIALIAS_DEFAULT,
 	CAIRO_ANTIALIAS_NONE,
@@ -133,14 +135,14 @@ pub enum cairo_antialias_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_fill_rule_t {
 	CAIRO_FILL_RULE_WINDING,
 	CAIRO_FILL_RULE_EVEN_ODD
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_line_cap_t {
 	CAIRO_LINE_CAP_BUTT,
 	CAIRO_LINE_CAP_ROUND,
@@ -148,7 +150,7 @@ pub enum cairo_line_cap_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_line_join_t {
 	CAIRO_LINE_JOIN_MITER,
 	CAIRO_LINE_JOIN_ROUND,
@@ -187,7 +189,7 @@ pub struct cairo_text_cluster_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_text_cluster_flags_t {
 	/// Needed for Rust to compile this
 	CAIRO_TEXT_CLUSTER_FLAG_NONE = 0x00000000,
@@ -214,7 +216,7 @@ pub struct cairo_font_extents_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_font_slant_t {
 	CAIRO_FONT_SLANT_NORMAL, 
 	CAIRO_FONT_SLANT_ITALIC, 
@@ -222,14 +224,14 @@ pub enum cairo_font_slant_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_font_weight_t {
 	CAIRO_FONT_WEIGHT_NORMAL, 
 	CAIRO_FONT_WEIGHT_BOLD
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_subpixel_order_t {
 	CAIRO_SUBPIXEL_ORDER_DEFAULT, 
 	CAIRO_SUBPIXEL_ORDER_RGB, 
@@ -249,7 +251,7 @@ pub enum cairo_hint_style_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_hint_metrics_t {
 	CAIRO_HINT_METRICS_DEFAULT, 
 	CAIRO_HINT_METRICS_OFF, 
@@ -259,7 +261,7 @@ pub enum cairo_hint_metrics_t {
 #[repr(C)] pub struct cairo_font_options_t;
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_font_type_t {
 	CAIRO_FONT_TYPE_TOY, 
 	CAIRO_FONT_TYPE_FT, 
@@ -274,7 +276,7 @@ pub type cairo_user_scaled_font_text_to_glyphs_func_t = extern fn(scaled_font: *
 pub type cairo_user_scaled_font_unicode_to_glyph_func_t = extern fn(scaled_font: *mut cairo_scaled_font_t, unicode: c_ulong, glyph_index: *mut c_ulong) -> cairo_status_t;
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_path_data_type_t {
 	CAIRO_PATH_MOVE_TO, 
 	CAIRO_PATH_LINE_TO, 
@@ -336,7 +338,7 @@ pub struct cairo_path_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_device_type_t {
 	CAIRO_DEVICE_TYPE_DRM, 
 	CAIRO_DEVICE_TYPE_GL, 
@@ -347,7 +349,7 @@ pub enum cairo_device_type_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_surface_type_t {
 	CAIRO_SURFACE_TYPE_IMAGE,
 	CAIRO_SURFACE_TYPE_PDF,
@@ -376,7 +378,7 @@ pub enum cairo_surface_type_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_format_t {
 	CAIRO_FORMAT_INVALID = -1, 
 	CAIRO_FORMAT_ARGB32 = 0, 
@@ -387,7 +389,7 @@ pub enum cairo_format_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_pattern_type_t {
 	CAIRO_PATTERN_TYPE_SOLID, 
 	CAIRO_PATTERN_TYPE_SURFACE, 
@@ -396,7 +398,7 @@ pub enum cairo_pattern_type_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_extend_t {
 	CAIRO_EXTEND_NONE, 
 	CAIRO_EXTEND_REPEAT, 
@@ -405,7 +407,7 @@ pub enum cairo_extend_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_filter_t {
 	CAIRO_FILTER_FAST, 
 	CAIRO_FILTER_GOOD, 
@@ -426,7 +428,7 @@ pub struct cairo_rectangle_int_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
+#[derive(Show, FromPrimitive)]
 pub enum cairo_region_overlap_t {
 	CAIRO_REGION_OVERLAP_IN, 
 	CAIRO_REGION_OVERLAP_OUT, 
@@ -438,29 +440,29 @@ extern {
 	pub fn cairo_version_string() -> *const c_char;
 	pub fn cairo_create(target: *mut cairo_surface_t) -> *mut cairo_t;
 	pub fn cairo_reference(cr: *mut cairo_t) -> *mut cairo_t;
-	pub fn cairo_destroy(cr: *mut cairo_t);
+	pub fn cairo_destroy(cr: *mut cairo_t) -> c_void;
 	pub fn cairo_get_reference_count(cr: *mut cairo_t) -> c_uint;
 	pub fn cairo_get_user_data(cr: *mut cairo_t, key: *const cairo_user_data_key_t) -> *mut c_void;
 	pub fn cairo_set_user_data(cr: *mut cairo_t, key: *const cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> cairo_status_t;
-	pub fn cairo_save(cr: *mut cairo_t);
-	pub fn cairo_restore(cr: *mut cairo_t);
-	pub fn cairo_push_group(cr: *mut cairo_t);
-	pub fn cairo_push_group_with_content(cr: *mut cairo_t, content: cairo_content_t);
+	pub fn cairo_save(cr: *mut cairo_t) -> c_void;
+	pub fn cairo_restore(cr: *mut cairo_t) -> c_void;
+	pub fn cairo_push_group(cr: *mut cairo_t) -> c_void;
+	pub fn cairo_push_group_with_content(cr: *mut cairo_t, content: cairo_content_t) -> c_void;
 	pub fn cairo_pop_group(cr: *mut cairo_t) -> *mut cairo_pattern_t;
-	pub fn cairo_pop_group_to_source(cr: &mut cairo_t);
-	pub fn cairo_set_operator(cr: *mut cairo_t, op: cairo_operator_t);
-	pub fn cairo_set_source(cr: *mut cairo_t, source: *mut cairo_pattern_t);
-	pub fn cairo_set_source_rgb(cr: *mut cairo_t, red: c_double, green: c_double, blue: c_double);
-	pub fn cairo_set_source_rgba(cr: *mut cairo_t, red: c_double, green: c_double, blue: c_double, alpha: c_double);
-	pub fn cairo_set_source_surface(cr: *mut cairo_t, surface: *mut cairo_surface_t, x: c_double, y: c_double);
-	pub fn cairo_set_tolerance(cr: *mut cairo_t, tolerance: c_double);
-	pub fn cairo_set_antialias(cr: *mut cairo_t, antialias: cairo_antialias_t);
-	pub fn cairo_set_fill_rule(cr: *mut cairo_t, fill_rule: cairo_fill_rule_t);
-	pub fn cairo_set_line_width(cr: *mut cairo_t, width: c_double);
-	pub fn cairo_set_line_cap(cr: *mut cairo_t, line_cap: cairo_line_cap_t);
-	pub fn cairo_set_line_join(cr: *mut cairo_t, line_join: cairo_line_join_t);
-	pub fn cairo_set_dash(cr: *mut cairo_t, dashes: *const c_double, num_dashes: c_int, offset: c_double);
-	pub fn cairo_set_miter_limit(cr: *mut cairo_t, limit: c_double);
+	pub fn cairo_pop_group_to_source(cr: &mut cairo_t) -> c_void;
+	pub fn cairo_set_operator(cr: *mut cairo_t, op: cairo_operator_t) -> c_void;
+	pub fn cairo_set_source(cr: *mut cairo_t, source: *mut cairo_pattern_t) -> c_void;
+	pub fn cairo_set_source_rgb(cr: *mut cairo_t, red: c_double, green: c_double, blue: c_double) -> c_void;
+	pub fn cairo_set_source_rgba(cr: *mut cairo_t, red: c_double, green: c_double, blue: c_double, alpha: c_double) -> c_void;
+	pub fn cairo_set_source_surface(cr: *mut cairo_t, surface: *mut cairo_surface_t, x: c_double, y: c_double) -> c_void;
+	pub fn cairo_set_tolerance(cr: *mut cairo_t, tolerance: c_double) -> c_void;
+	pub fn cairo_set_antialias(cr: *mut cairo_t, antialias: cairo_antialias_t) -> c_void;
+	pub fn cairo_set_fill_rule(cr: *mut cairo_t, fill_rule: cairo_fill_rule_t) -> c_void;
+	pub fn cairo_set_line_width(cr: *mut cairo_t, width: c_double) -> c_void;
+	pub fn cairo_set_line_cap(cr: *mut cairo_t, line_cap: cairo_line_cap_t) -> c_void;
+	pub fn cairo_set_line_join(cr: *mut cairo_t, line_join: cairo_line_join_t) -> c_void;
+	pub fn cairo_set_dash(cr: *mut cairo_t, dashes: *const c_double, num_dashes: c_int, offset: c_double) -> c_void;
+	pub fn cairo_set_miter_limit(cr: *mut cairo_t, limit: c_double) -> c_void;
 	pub fn cairo_translate(cr: *mut cairo_t, tx: c_double, ty: c_double) -> c_void;
 	pub fn cairo_scale(cr: *mut cairo_t, sx: c_double, sy: c_double) -> c_void;
 	pub fn cairo_rotate(cr: *mut cairo_t, angle: c_double) -> c_void;
@@ -506,7 +508,7 @@ extern {
 	pub fn cairo_copy_clip_rectangle_list(cr: *mut cairo_t) -> *mut cairo_rectangle_list_t;
 	pub fn cairo_rectangle_list_destroy(rectangle_list: *mut cairo_rectangle_list_t) -> c_void;
 	pub fn cairo_glyph_allocate(num_glyphs: c_int) -> *mut cairo_glyph_t;
-	pub fn cairo_glyph_gree(glyphs: *mut cairo_glyph_t);
+	pub fn cairo_glyph_gree(glyphs: *mut cairo_glyph_t) -> c_void;
 	pub fn cairo_text_cluster_allocate(num_clusters: c_int) -> *mut cairo_text_cluster_t;
 	pub fn cairo_text_cluster_free(clusters: *mut cairo_text_cluster_t) -> c_void;
 	pub fn cairo_font_options_create() -> *mut cairo_font_options_t;

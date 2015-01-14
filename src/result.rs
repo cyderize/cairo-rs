@@ -6,7 +6,7 @@ use ffi;
 
 pub type CairoResult<T> = Result<T, CairoError>;
 
-#[derive(Copy, FromPrimitive)]
+#[derive(Show, Copy, FromPrimitive)]
 pub enum CairoError {
 	NoMemory,
 	InvalidRestore,
@@ -59,7 +59,7 @@ pub fn from_raw<T>(ok: T, status: ffi::cairo_status_t) -> CairoResult<T> {
 	if num == 0 {
 		return Ok(ok);
 	}
-	Err(FromPrimitive::from_u64(num).unwrap_or(CairoError::Unknown))
+	Err(FromPrimitive::from_u64(num - 1).unwrap_or(CairoError::Unknown))
 }
 
 impl Error for CairoError {

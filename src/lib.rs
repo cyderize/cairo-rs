@@ -32,12 +32,17 @@ impl Context {
 			ffi::cairo_get_reference_count(self.inner) as usize
 		}
 	}
+	pub fn scale(&self, sx: f64, sy: f64) {
+		unsafe {
+			ffi::cairo_scale(self.inner, sx, sy);
+		}
+	}
 	pub fn set_source<P: Pattern>(&self, pattern: P) {
 		unsafe {
 			ffi::cairo_set_source(
 				self.inner,
 				pattern.as_raw()
-			)
+			);
 		}
 	}
 	pub fn set_source_rgb(&self, red: f64, green: f64, blue: f64) {
@@ -47,7 +52,7 @@ impl Context {
 				red as libc::c_double,
 				green as libc::c_double,
 				blue as libc::c_double
-			)
+			);
 		}
 	}
 	pub fn set_source_rgba(&self, red: f64, green: f64, blue: f64, alpha: f64) {
@@ -58,7 +63,7 @@ impl Context {
 				green as libc::c_double,
 				blue as libc::c_double,
 				alpha as libc::c_double
-			)
+			);
 		}
 	}
 	pub fn set_tolerance(&self, tolerance: f64) {
@@ -230,7 +235,7 @@ impl Clone for Context {
 impl Drop for Context {
 	fn drop(&mut self) {
 		unsafe {
-			ffi::cairo_destroy(self.inner)
+			ffi::cairo_destroy(self.inner);
 		}
 	}
 }
