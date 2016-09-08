@@ -1,6 +1,5 @@
 #![allow(non_camel_case_types)]
 #![allow(missing_copy_implementations)]
-#![allow(unstable)]
 
 extern crate libc;
 
@@ -9,9 +8,9 @@ use std::mem;
 
 pub type cairo_bool_t = c_int;
 
-#[repr(C)] pub struct cairo_t;
-#[repr(C)] pub struct cairo_surface_t;
-#[repr(C)] pub struct cairo_device_t;
+#[repr(C)] pub enum cairo_t{__variant1}
+#[repr(C)] pub enum cairo_surface_t{__variant1}
+#[repr(C)] pub enum cairo_device_t{__variant1}
 
 #[repr(C)]
 pub struct cairo_matrix_t {
@@ -23,7 +22,7 @@ pub struct cairo_matrix_t {
 	pub y0: c_double,
 }
 
-#[repr(C)] pub struct cairo_pattern_t;
+#[repr(C)] pub enum cairo_pattern_t{__variant1}
 
 pub type cairo_destroy_func_t = extern fn(*mut c_void);
 
@@ -33,7 +32,6 @@ pub struct cairo_user_data_key_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_status_t {
 	CAIRO_STATUS_SUCCESS = 0,
 
@@ -77,7 +75,6 @@ pub enum cairo_status_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_content_t {
 	CAIRO_CONTENT_COLOR = 0x1000,
 	CAIRO_CONTENT_ALPHA = 0x2000,
@@ -88,7 +85,6 @@ pub type cairo_write_func_t = extern fn(closure: *mut c_void, data: *const c_uch
 pub type cairo_read_func_t = extern fn(closure: *mut c_void, data: *mut c_uchar, length: c_uint) -> cairo_status_t;
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_operator_t {
 	CAIRO_OPERATOR_CLEAR,
 
@@ -126,7 +122,6 @@ pub enum cairo_operator_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_antialias_t {
 	CAIRO_ANTIALIAS_DEFAULT,
 	CAIRO_ANTIALIAS_NONE,
@@ -135,14 +130,12 @@ pub enum cairo_antialias_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_fill_rule_t {
 	CAIRO_FILL_RULE_WINDING,
 	CAIRO_FILL_RULE_EVEN_ODD
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_line_cap_t {
 	CAIRO_LINE_CAP_BUTT,
 	CAIRO_LINE_CAP_ROUND,
@@ -150,7 +143,6 @@ pub enum cairo_line_cap_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_line_join_t {
 	CAIRO_LINE_JOIN_MITER,
 	CAIRO_LINE_JOIN_ROUND,
@@ -172,8 +164,8 @@ pub struct cairo_rectangle_list_t {
 	pub num_rectangles: c_int,
 }
 
-#[repr(C)] pub struct cairo_scaled_font_t;
-#[repr(C)] pub struct cairo_font_face_t;
+#[repr(C)] pub enum cairo_scaled_font_t{__variant1}
+#[repr(C)] pub enum cairo_font_face_t{__variant1}
 
 #[repr(C)]
 pub struct cairo_glyph_t {
@@ -189,7 +181,6 @@ pub struct cairo_text_cluster_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_text_cluster_flags_t {
 	/// Needed for Rust to compile this
 	CAIRO_TEXT_CLUSTER_FLAG_NONE = 0x00000000,
@@ -216,7 +207,6 @@ pub struct cairo_font_extents_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_font_slant_t {
 	CAIRO_FONT_SLANT_NORMAL, 
 	CAIRO_FONT_SLANT_ITALIC, 
@@ -224,14 +214,12 @@ pub enum cairo_font_slant_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_font_weight_t {
 	CAIRO_FONT_WEIGHT_NORMAL, 
 	CAIRO_FONT_WEIGHT_BOLD
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_subpixel_order_t {
 	CAIRO_SUBPIXEL_ORDER_DEFAULT, 
 	CAIRO_SUBPIXEL_ORDER_RGB, 
@@ -241,7 +229,6 @@ pub enum cairo_subpixel_order_t {
 }
 
 #[repr(C)]
-#[derive(FromPrimitive)]
 pub enum cairo_hint_style_t {
 	CAIRO_HINT_STYLE_DEFAULT, 
 	CAIRO_HINT_STYLE_NONE, 
@@ -251,17 +238,15 @@ pub enum cairo_hint_style_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_hint_metrics_t {
 	CAIRO_HINT_METRICS_DEFAULT, 
 	CAIRO_HINT_METRICS_OFF, 
 	CAIRO_HINT_METRICS_ON
 }
 
-#[repr(C)] pub struct cairo_font_options_t;
+#[repr(C)] pub enum cairo_font_options_t{__variant1}
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_font_type_t {
 	CAIRO_FONT_TYPE_TOY, 
 	CAIRO_FONT_TYPE_FT, 
@@ -276,7 +261,6 @@ pub type cairo_user_scaled_font_text_to_glyphs_func_t = extern fn(scaled_font: *
 pub type cairo_user_scaled_font_unicode_to_glyph_func_t = extern fn(scaled_font: *mut cairo_scaled_font_t, unicode: c_ulong, glyph_index: *mut c_ulong) -> cairo_status_t;
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_path_data_type_t {
 	CAIRO_PATH_MOVE_TO, 
 	CAIRO_PATH_LINE_TO, 
@@ -338,7 +322,6 @@ pub struct cairo_path_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_device_type_t {
 	CAIRO_DEVICE_TYPE_DRM, 
 	CAIRO_DEVICE_TYPE_GL, 
@@ -349,7 +332,6 @@ pub enum cairo_device_type_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_surface_type_t {
 	CAIRO_SURFACE_TYPE_IMAGE,
 	CAIRO_SURFACE_TYPE_PDF,
@@ -378,7 +360,6 @@ pub enum cairo_surface_type_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_format_t {
 	CAIRO_FORMAT_INVALID = -1, 
 	CAIRO_FORMAT_ARGB32 = 0, 
@@ -389,7 +370,6 @@ pub enum cairo_format_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_pattern_type_t {
 	CAIRO_PATTERN_TYPE_SOLID, 
 	CAIRO_PATTERN_TYPE_SURFACE, 
@@ -398,7 +378,6 @@ pub enum cairo_pattern_type_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_extend_t {
 	CAIRO_EXTEND_NONE, 
 	CAIRO_EXTEND_REPEAT, 
@@ -407,7 +386,6 @@ pub enum cairo_extend_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_filter_t {
 	CAIRO_FILTER_FAST, 
 	CAIRO_FILTER_GOOD, 
@@ -417,7 +395,7 @@ pub enum cairo_filter_t {
 	CAIRO_FILTER_GAUSSIAN
 }
 
-#[repr(C)] pub struct cairo_region_t;
+#[repr(C)] pub enum cairo_region_t {__variant1}
 
 #[repr(C)]
 pub struct cairo_rectangle_int_t {
@@ -428,7 +406,6 @@ pub struct cairo_rectangle_int_t {
 }
 
 #[repr(C)]
-#[derive(Show, FromPrimitive)]
 pub enum cairo_region_overlap_t {
 	CAIRO_REGION_OVERLAP_IN, 
 	CAIRO_REGION_OVERLAP_OUT, 
@@ -715,4 +692,5 @@ extern {
 	pub fn cairo_region_xor(dst: *mut cairo_region_t, other: *const cairo_region_t) -> cairo_status_t;
 	pub fn cairo_region_xor_rectangle(dst: *mut cairo_region_t, rectangle: *const cairo_rectangle_int_t) -> cairo_status_t;
 	pub fn cairo_debug_reset_static_data() -> c_void;
+    pub fn cairo_xlib_surface_create();
 }

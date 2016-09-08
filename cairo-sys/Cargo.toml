@@ -1,17 +1,14 @@
 [package]
-
-name = "cairo-sys"
-version = "0.0.2"
 authors = ["cyderize <admin@cyderize.org>"]
-
-description = "Cairo bindings for Rust."
-repository = "https://github.com/cyderize/cairo-rs.git"
-
-readme = "README.md"
-
-keywords = ["cairo", "graphics"]
-
-license = "MIT"
-
-links = "cairo"
 build = "src/build.rs"
+description = "Cairo bindings for Rust."
+keywords = ["cairo", "graphics"]
+license = "MIT"
+links = "cairo"
+name = "cairo-sys"
+readme = "README.md"
+repository = "https://github.com/cyderize/cairo-rs.git"
+version = "0.0.2"
+
+[dependencies]
+libc = "0.2.15"
